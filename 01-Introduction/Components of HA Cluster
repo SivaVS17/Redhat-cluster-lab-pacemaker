@@ -65,12 +65,10 @@ PCS (Pacemaker Configuration System) is the command-line tool used to configure 
 
 Example commands:
 
-```bash
 pcs status
 pcs resource show
 pcs cluster start --all
 pcs node status
-```
 
 ---
 
