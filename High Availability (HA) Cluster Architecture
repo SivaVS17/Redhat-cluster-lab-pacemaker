@@ -8,7 +8,6 @@ Pacemaker acts as the cluster manager, while Corosync provides communication bet
 
 ## Architecture Diagram
 
-```text
                            Client
                               │
                               │
@@ -36,6 +35,5 @@ Pacemaker acts as the cluster manager, while Corosync provides communication bet
 | Application Resource   |                 | Standby Resource       |
 +------------------------+                 +------------------------+
 
-```
 
 ---
