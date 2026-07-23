@@ -2,15 +2,75 @@
 
 A **cluster** is a group of two or more servers (called **nodes**) that work together as a single system to provide high availability, improved performance, and scalability. 
 
-Clusters are widely used in production environments where continuous service availability is critical, such as banking, healthcare, e-commerce, telecommunications, and cloud infrastructure.
+## Cluster Workflow
 
+                 User
+                  │
+                  ▼
+          +----------------+
+          | Load Balancer  |
+          +----------------+
+             │         │
+             │         │
+        +---------+ +---------+
+        | Node 1  | | Node 2  |
+        | Active  | | Standby |
+        +---------+ +---------+
+
+### Explanation
+1. The user sends a request to the application.
+2. The Load Balancer distributes the request.
+3. Traffic is directed to the active node.
+4. If the active node fails, traffic is redirected to another healthy node.
+5. Users experience little or no downtime.
+
+**Note**
+A cluster does not always mean Load Balancing.
+Red Hat Pacemaker Cluster is primarily designed for **High Availability (HA)** rather than Load Balancing.
 ---
 
 ## Why Do We Need a Cluster?
 
 A single server can become a single point of failure. If the server experiences hardware failure, operating system crashes, or scheduled maintenance, the hosted application becomes unavailable.
 A cluster eliminates this risk by distributing services across multiple servers, allowing another node to continue serving users if one node becomes unavailable.
+Clusters are widely used in production environments where continuous service availability is critical, such as banking, healthcare, e-commerce, telecommunications, and cloud infrastructure.
 
+**##With Cluster**
+               
+                  Application
+                       │
+               Virtual IP (VIP)
+                       │
+         +-------------------------+
+         |     Pacemaker Cluster   |
+         +-------------------------+
+             │                 │
+      +-------------+   +-------------+
+      |    Node 1   |   |    Node 2   |
+      |   Active    |   |   Standby   |
+      +-------------+   +-------------+
+             │
+      Node 1 Fails
+             │
+             ▼
+      Resources Move to Node 2
+
+If one server fails, another server in the cluster can automatically take over, ensuring that applications remain available with minimal or no downtime.
+
+**##Without Cluster**
+               
+                Application
+                     │
+               +-------------+
+               |   Node 1    |
+               +-------------+
+                     │
+             Hardware Failure
+                     │
+                     ▼
+          Application Unavailable
+
+  If server fails/down, application will be unavailable.
 ---
 
 ## Purpose of a Cluster
